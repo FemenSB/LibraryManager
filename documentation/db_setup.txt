@@ -1,0 +1,7 @@
+CREATE TABLE `librarymanager`.`books` (`title` VARCHAR(255) NOT NULL , `authorName` VARCHAR(255) NOT NULL , `edition` INT NOT NULL , `releaseDate` DATE NOT NULL , `copiesOwned` INT NOT NULL , `id` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+CREATE TABLE `librarymanager`.`users` (`name` VARCHAR(255) NOT NULL , `phoneNumber` VARCHAR(20) NOT NULL , `fine` float NOT NULL , `id` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+CREATE TABLE `librarymanager`.`lendings` (`lendingDate` DATE NOT NULL , `returned` BOOLEAN NOT NULL , `returnDate` DATE NULL , `bookId` INT NOT NULL , `userId` INT NOT NULL , `id` INT NOT NULL AUTO_INCREMENT , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+ALTER TABLE `lendings` ADD CONSTRAINT `fk_books` FOREIGN KEY (`bookId`) REFERENCES `books`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT; ALTER TABLE `lendings` ADD CONSTRAINT `fk_users` FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
