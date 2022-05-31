@@ -266,5 +266,59 @@ public class LendingController {
         
         return lending;
     }
+    
+    public int countUserPendingLendings(int userId) {
+        String sql = "SELECT COUNT(*) FROM lendings WHERE returned = FALSE AND userId = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        
+        try {
+
+            conn = ConnectionFactory.getConnection();
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, userId);
+
+            resultSet = statement.executeQuery();
+
+            resultSet.next();
+            return resultSet.getInt(1);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            //throw new SQLException("Error selecting the lendings in the database");
+        } finally {
+            ConnectionFactory.closeConnection(conn, statement, resultSet);
+        }
+        
+        return -1;
+        
+    }
+    
+    public int countBookPendingLendings(int bookId) {
+        String sql = "SELECT COUNT(*) FROM lendings WHERE returned = FALSE AND bookId = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        
+        try {
+
+            conn = ConnectionFactory.getConnection();
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, bookId);
+
+            resultSet = statement.executeQuery();
+
+            resultSet.next();
+            return resultSet.getInt(1);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            //throw new SQLException("Error selecting the lendings in the database");
+        } finally {
+            ConnectionFactory.closeConnection(conn, statement, resultSet);
+        }
+        
+        return -1;
+        
+    }
 
 }

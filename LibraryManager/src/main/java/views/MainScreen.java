@@ -69,6 +69,9 @@ public class MainScreen extends javax.swing.JFrame {
         fineLabel = new javax.swing.JLabel();
         fineField = new javax.swing.JFormattedTextField();
         setFineButton = new javax.swing.JButton();
+        maxBorrowedLabel = new javax.swing.JLabel();
+        maxBorrowedField = new javax.swing.JFormattedTextField();
+        setMaxBorrowedButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(680, 660));
@@ -250,16 +253,24 @@ public class MainScreen extends javax.swing.JFrame {
 
         fineField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         fineField.setText("0,25");
-        fineField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fineFieldActionPerformed(evt);
-            }
-        });
 
         setFineButton.setText("set");
         setFineButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 setFineButtonMouseClicked(evt);
+            }
+        });
+
+        maxBorrowedLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        maxBorrowedLabel.setText("Max. borrowed books:");
+
+        maxBorrowedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        maxBorrowedField.setText("3");
+
+        setMaxBorrowedButton.setText("set");
+        setMaxBorrowedButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                setMaxBorrowedButtonMouseClicked(evt);
             }
         });
 
@@ -275,19 +286,23 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(RegisterBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(RegisterUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(ButtonsPanelLayout.createSequentialGroup()
-                        .addGroup(ButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(ButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(fineLabel)
-                            .addGroup(ButtonsPanelLayout.createSequentialGroup()
-                                .addComponent(fineField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(setFineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                            .addGroup(ButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ButtonsPanelLayout.createSequentialGroup()
-                                    .addComponent(lendingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(setLendingTimeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                                .addComponent(lendingTimeLabel, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(lendingTimeLabel)
+                            .addComponent(maxBorrowedLabel))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(ButtonsPanelLayout.createSequentialGroup()
+                        .addComponent(maxBorrowedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(setMaxBorrowedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                    .addGroup(ButtonsPanelLayout.createSequentialGroup()
+                        .addComponent(fineField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(setFineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                    .addGroup(ButtonsPanelLayout.createSequentialGroup()
+                        .addComponent(lendingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(setLendingTimeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         ButtonsPanelLayout.setVerticalGroup(
@@ -313,7 +328,13 @@ public class MainScreen extends javax.swing.JFrame {
                 .addGroup(ButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fineField)
                     .addComponent(setFineButton))
-                .addGap(125, 125, 125))
+                .addGap(40, 40, 40)
+                .addComponent(maxBorrowedLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(maxBorrowedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(setMaxBorrowedButton))
+                .addGap(41, 41, 41))
         );
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
@@ -426,9 +447,9 @@ public class MainScreen extends javax.swing.JFrame {
         Settings.setFine(Float.parseFloat(fineField.getText().replace(",", ".")));
     }//GEN-LAST:event_setFineButtonMouseClicked
 
-    private void fineFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fineFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fineFieldActionPerformed
+    private void setMaxBorrowedButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setMaxBorrowedButtonMouseClicked
+        Settings.setMaxLendings(parseInt(maxBorrowedField.getText()));
+    }//GEN-LAST:event_setMaxBorrowedButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -485,8 +506,11 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JLabel fineLabel;
     private javax.swing.JFormattedTextField lendingTimeField;
     private javax.swing.JLabel lendingTimeLabel;
+    private javax.swing.JFormattedTextField maxBorrowedField;
+    private javax.swing.JLabel maxBorrowedLabel;
     private javax.swing.JButton setFineButton;
     private javax.swing.JButton setLendingTimeButton;
+    private javax.swing.JButton setMaxBorrowedButton;
     // End of variables declaration//GEN-END:variables
 
     public void decorateLendingsTable() {

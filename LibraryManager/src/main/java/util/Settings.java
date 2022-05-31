@@ -11,6 +11,7 @@ package util;
 public final class Settings {
     
     private static int lendingTime = 7;
+    private static int maxLendings = 3;
     private static float fine = 0.25f;
     
     public static int getLendingTime() {
@@ -28,7 +29,15 @@ public final class Settings {
     public static void setFine(float fine) {
         Settings.fine = fine;
     }
-   
+
+    public static int getMaxLendings() {
+        return maxLendings;
+    }
+
+    public static void setMaxLendings(int maxLendings) {
+        Settings.maxLendings = maxLendings;
+    }
+    
     private Settings() {
         
     }

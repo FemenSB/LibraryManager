@@ -10,6 +10,7 @@ import models.Lending;
 import controllers.BookController;
 import controllers.UserController;
 import controllers.LendingController;
+import util.Settings;
 
 import static java.lang.Integer.parseInt;
 import javax.swing.JOptionPane;
@@ -169,15 +170,40 @@ public class NewLendingDialog extends javax.swing.JDialog {
             return;
         }
         
+        // Check for pending fines for this user
+        if(user.getFine() > 0) {
+            JOptionPane.showMessageDialog(rootPane, "User has pending fines");
+            return;
+        }
+        
+        // Count user's current pending lendings
+        LendingController lendingController = new LendingController();
+        int pendingLendings = lendingController.countUserPendingLendings(user.getId());
+        if(pendingLendings >= Settings.getMaxLendings()) {
+            JOptionPane.showMessageDialog(rootPane, "User already borrowed the maximum of books");
+            return;
+        }
+        
+        // Check if the user already borrowed a copy of this book
+        if(lendingController.getByUserAndBook(user.getId(), book.getId()) != null) {
+            JOptionPane.showMessageDialog(rootPane, "User already borrowed a copy of this book");
+            return;
+        }
+        
+        // Check if there are copies remaining of the book
+        if(lendingController.countBookPendingLendings(book.getId()) >= book.getCopiesOwned()) {
+            JOptionPane.showMessageDialog(rootPane, "No copies available of this book");
+            return;
+        }
+        
         String message = "Lend " + book.getTitle() + " to " + user.getName() + "?";
         int dialogResult = JOptionPane.showConfirmDialog(this, message, "Lend book?", JOptionPane.YES_NO_OPTION);
         
-        if(dialogResult == 1) { // If user clicked no
+        if(dialogResult == 1) { // If user clicked "no"
             return;
         }
-        // If user clicked yes, create and store the lending
+        // If user clicked "yes", create and store the lending
         Lending lending = new Lending(bookId, userId);
-        LendingController lendingController = new LendingController();
         lendingController.save(lending);
         
         JOptionPane.showMessageDialog(rootPane, "Lending registered");
