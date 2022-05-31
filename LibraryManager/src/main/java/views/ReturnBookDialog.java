@@ -238,6 +238,11 @@ public class ReturnBookDialog extends javax.swing.JDialog {
             }
         });
     }
+    
+    public void setLending(Lending lending) {
+        bookIdField.setText(Integer.toString(lending.getBookId()));
+        userIdField.setText(Integer.toString(lending.getUserId()));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bookIdField;

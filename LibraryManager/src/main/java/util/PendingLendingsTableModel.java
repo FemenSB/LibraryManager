@@ -18,12 +18,12 @@ import models.Lending;
  *
  * @author Femen
  */
-public class LendingTableModel extends AbstractTableModel{
+public class PendingLendingsTableModel extends AbstractTableModel{
 
     UserController userController = new UserController();
     BookController bookController = new BookController();
     
-    String[] columns = {"User name", "Book title", "Lending date", "Time (days)"};
+    String[] columns = {"User name", "Book title", "Lending date", "Time (days)", "Return"};
     List<Lending> lendings = new ArrayList();    
     
     @Override
@@ -54,6 +54,9 @@ public class LendingTableModel extends AbstractTableModel{
                 long time = today.getTime() - lendings.get(rowIndex).getLendingDate().getTime();
                 return (int) (time / 86400000);
                 
+            case 4:
+                return "<-- return";
+                
             default:
                 return "unexistent column";
         }
@@ -76,6 +79,9 @@ public class LendingTableModel extends AbstractTableModel{
         this.lendings = lendings;
     }
     
+    public Lending getLendingByIndex(int lendingIndex) {
+        return lendings.get(lendingIndex);
+    }
     
     
 }

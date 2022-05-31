@@ -13,7 +13,7 @@ import static java.lang.Integer.parseInt;
 
 import controllers.LendingController;
 import models.Lending;
-import util.LendingTableModel;
+import util.PendingLendingsTableModel;
 import util.Settings;
 import views.viewUser.ViewUsersDialog;
 import views.viewBook.ViewBooksDialog;
@@ -24,7 +24,7 @@ import views.viewBook.ViewBooksDialog;
  */
 public class MainScreen extends javax.swing.JFrame {
 
-    LendingTableModel lendingsModel;
+    PendingLendingsTableModel lendingsModel;
     LendingController controller;
     
     /**
@@ -33,7 +33,7 @@ public class MainScreen extends javax.swing.JFrame {
     public MainScreen() {
         initComponents();
         decorateLendingsTable();
-        lendingsModel = new LendingTableModel();
+        lendingsModel = new PendingLendingsTableModel();
         LendingsTable.setModel(lendingsModel);
         controller = new LendingController();
         loadLendings();
@@ -155,20 +155,20 @@ public class MainScreen extends javax.swing.JFrame {
 
         LendingsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "User name", "Book title", "Lending date", "Time (days)"
+                "User name", "Book title", "Lending date", "Time (days)", "Return"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -180,6 +180,11 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
         LendingsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        LendingsTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LendingsTableMouseClicked(evt);
+            }
+        });
         LendingsScroll.setViewportView(LendingsTable);
 
         javax.swing.GroupLayout LendingsPanelLayout = new javax.swing.GroupLayout(LendingsPanel);
@@ -450,6 +455,29 @@ public class MainScreen extends javax.swing.JFrame {
     private void setMaxBorrowedButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setMaxBorrowedButtonMouseClicked
         Settings.setMaxLendings(parseInt(maxBorrowedField.getText()));
     }//GEN-LAST:event_setMaxBorrowedButtonMouseClicked
+
+    private void LendingsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LendingsTableMouseClicked
+        int rowIndex = LendingsTable.rowAtPoint(evt.getPoint());
+        int columnIndex = LendingsTable.columnAtPoint(evt.getPoint());
+        
+        if(columnIndex == 4) {
+            Lending lending = lendingsModel.getLendingByIndex(rowIndex); // Get the clicked lending
+            
+            ReturnBookDialog returnBookDialog = new ReturnBookDialog(this, rootPaneCheckingEnabled); // Open ReturnBookDialog
+            returnBookDialog.addWindowListener(new WindowAdapter() {
+               @Override
+               public void windowClosed(WindowEvent e) {
+                   loadLendings();
+                   LendingsTable.updateUI();
+               } 
+            });
+            
+            returnBookDialog.setLending(lending); // Call method to automatically set the fields in ReturnBookDialog
+
+            returnBookDialog.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_LendingsTableMouseClicked
 
     /**
      * @param args the command line arguments
