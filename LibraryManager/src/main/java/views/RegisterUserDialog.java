@@ -23,6 +23,7 @@ public class RegisterUserDialog extends javax.swing.JDialog {
     public RegisterUserDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        hideRequirements();
         controller = new UserController();
     }
 
@@ -43,6 +44,8 @@ public class RegisterUserDialog extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         PhoneNumberField = new javax.swing.JTextField();
         RegisterButton = new javax.swing.JButton();
+        nameRequired = new javax.swing.JLabel();
+        phoneRequired = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 300));
@@ -93,6 +96,14 @@ public class RegisterUserDialog extends javax.swing.JDialog {
             }
         });
 
+        nameRequired.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        nameRequired.setForeground(new java.awt.Color(255, 51, 51));
+        nameRequired.setText("Required field");
+
+        phoneRequired.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        phoneRequired.setForeground(new java.awt.Color(255, 51, 51));
+        phoneRequired.setText("Required field");
+
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
@@ -102,15 +113,21 @@ public class RegisterUserDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(NameField)
-                    .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(PhoneNumberField)
                     .addGroup(MainPanelLayout.createSequentialGroup()
                         .addGap(227, 227, 227)
-                        .addComponent(RegisterButton, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)))
+                        .addComponent(RegisterButton, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(nameRequired))
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(phoneRequired)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         MainPanelLayout.setVerticalGroup(
@@ -118,11 +135,15 @@ public class RegisterUserDialog extends javax.swing.JDialog {
             .addGroup(MainPanelLayout.createSequentialGroup()
                 .addComponent(TitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nameRequired))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(phoneRequired))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PhoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -138,13 +159,19 @@ public class RegisterUserDialog extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void RegisterButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButtonMouseClicked
+        hideRequirements();
+        
+        if(!fieldsFilled()) {
+            return;
+        }
+        
         try {
             User user = new User(NameField.getText(), PhoneNumberField.getText());
             controller.save(user);
@@ -156,6 +183,26 @@ public class RegisterUserDialog extends javax.swing.JDialog {
         
     }//GEN-LAST:event_RegisterButtonMouseClicked
 
+    private void hideRequirements() {
+        nameRequired.setVisible(false);
+        phoneRequired.setVisible(false);
+    }
+    
+    private boolean fieldsFilled() { // Return true if all fields are correctly filled; Set the messages if they are not
+        boolean filled = true;
+        
+        if(NameField.getText().equals("")) {
+            nameRequired.setVisible(true);
+            filled = false;
+        }
+        if(PhoneNumberField.getText().equals("")) {
+            phoneRequired.setVisible(true);
+            filled = false;
+        }
+        
+        return filled;
+    }
+            
     /**
      * @param args the command line arguments
      */
@@ -207,5 +254,7 @@ public class RegisterUserDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel nameRequired;
+    private javax.swing.JLabel phoneRequired;
     // End of variables declaration//GEN-END:variables
 }

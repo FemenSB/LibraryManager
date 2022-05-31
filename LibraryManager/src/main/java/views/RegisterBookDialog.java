@@ -26,6 +26,7 @@ public class RegisterBookDialog extends javax.swing.JDialog {
     public RegisterBookDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        hideRequirements();
         controller = new BookController();
     }
 
@@ -52,6 +53,11 @@ public class RegisterBookDialog extends javax.swing.JDialog {
         RegisterButton = new javax.swing.JButton();
         ReleaseDateField = new javax.swing.JFormattedTextField();
         CopiesOwnedField = new javax.swing.JFormattedTextField();
+        titleRequired = new javax.swing.JLabel();
+        authorRequired = new javax.swing.JLabel();
+        editionRequired = new javax.swing.JLabel();
+        releaseRequired = new javax.swing.JLabel();
+        copiesRequired = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(399, 500));
@@ -126,6 +132,26 @@ public class RegisterBookDialog extends javax.swing.JDialog {
 
         CopiesOwnedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
+        titleRequired.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        titleRequired.setForeground(new java.awt.Color(255, 0, 0));
+        titleRequired.setText("Required field");
+
+        authorRequired.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        authorRequired.setForeground(new java.awt.Color(255, 0, 0));
+        authorRequired.setText("Required field");
+
+        editionRequired.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        editionRequired.setForeground(new java.awt.Color(255, 0, 0));
+        editionRequired.setText("Required field");
+
+        releaseRequired.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        releaseRequired.setForeground(new java.awt.Color(255, 0, 0));
+        releaseRequired.setText("Required field");
+
+        copiesRequired.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        copiesRequired.setForeground(new java.awt.Color(255, 0, 0));
+        copiesRequired.setText("Required field");
+
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
@@ -139,11 +165,26 @@ public class RegisterBookDialog extends javax.swing.JDialog {
                     .addComponent(EditionField)
                     .addGroup(MainPanelLayout.createSequentialGroup()
                         .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(titleRequired))
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(editionRequired))
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(releaseRequired))
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(authorRequired))
+                            .addGroup(MainPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(copiesRequired)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(MainPanelLayout.createSequentialGroup()
@@ -164,23 +205,33 @@ public class RegisterBookDialog extends javax.swing.JDialog {
             .addGroup(MainPanelLayout.createSequentialGroup()
                 .addComponent(TitlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                    .addComponent(titleRequired))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(TitleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                    .addComponent(authorRequired))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AuthorField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                    .addComponent(editionRequired))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(EditionField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                    .addComponent(releaseRequired))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ReleaseDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
-                .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                    .addComponent(copiesRequired))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CopiesOwnedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
@@ -209,6 +260,11 @@ public class RegisterBookDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_TitleFieldActionPerformed
 
     private void RegisterButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButtonMouseClicked
+        hideRequirements();
+        if(!fieldsFilled()) {
+            return;
+        }
+        
         try {
             Book book = new Book();
             // String values:
@@ -217,6 +273,7 @@ public class RegisterBookDialog extends javax.swing.JDialog {
             // Integer values:
             book.setEdition(parseInt(EditionField.getText()));
             book.setCopiesOwned(parseInt(CopiesOwnedField.getText()));
+            
             // Date formating from ReleaseDateField (JFormattedTextField):
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date releaseDate = null;
@@ -232,6 +289,55 @@ public class RegisterBookDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_RegisterButtonMouseClicked
 
+    private void hideRequirements() {
+        titleRequired.setVisible(false);
+        authorRequired.setVisible(false);
+        editionRequired.setVisible(false);
+        releaseRequired.setVisible(false);
+        copiesRequired.setVisible(false);
+    }
+    
+    private boolean fieldsFilled() { // Return true if all fields are correctly filled; Set the messages if they are not
+        boolean filled = true;
+        
+        // String values:
+        
+        if(TitleField.getText().equals("")) {
+            titleRequired.setVisible(true);
+            filled = false;
+        }
+        
+        if(AuthorField.getText().equals("")) {
+            authorRequired.setVisible(true);
+            filled = false;
+        }
+        
+        // Integer values:
+        
+        try {
+            parseInt(EditionField.getText());
+        } catch (NumberFormatException e) {
+            editionRequired.setVisible(true);
+            filled = false;
+        }
+        
+        try {
+            parseInt(CopiesOwnedField.getText());
+        } catch (NumberFormatException e) {
+            copiesRequired.setVisible(true);
+            filled = false;
+        }
+        
+        // Date value formatted by JFormattedTextField, so we just have to check if its blank
+        
+        if(ReleaseDateField.getText().equals("")) {
+            releaseRequired.setVisible(true);
+            filled = false;
+        }
+        
+        return filled;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -283,11 +389,16 @@ public class RegisterBookDialog extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField ReleaseDateField;
     private javax.swing.JTextField TitleField;
     private javax.swing.JPanel TitlePanel;
+    private javax.swing.JLabel authorRequired;
+    private javax.swing.JLabel copiesRequired;
+    private javax.swing.JLabel editionRequired;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel releaseRequired;
+    private javax.swing.JLabel titleRequired;
     // End of variables declaration//GEN-END:variables
 }
