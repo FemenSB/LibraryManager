@@ -322,24 +322,30 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void NewLendingButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewLendingButtonMouseClicked
         NewLendingDialog newLendingDialog = new NewLendingDialog(this, rootPaneCheckingEnabled);
-        newLendingDialog.setVisible(true);
         
         newLendingDialog.addWindowListener(new WindowAdapter() {
+           @Override
            public void windowClosed(WindowEvent e) {
                loadLendings();
+               LendingsTable.updateUI();
            } 
         });
+        
+        newLendingDialog.setVisible(true);
     }//GEN-LAST:event_NewLendingButtonMouseClicked
 
     private void ReturnLendingButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReturnLendingButtonMouseClicked
         ReturnBookDialog returnBookDialog = new ReturnBookDialog(this, rootPaneCheckingEnabled);
-        returnBookDialog.setVisible(true);
         
         returnBookDialog.addWindowListener(new WindowAdapter() {
+           @Override
            public void windowClosed(WindowEvent e) {
                loadLendings();
+               LendingsTable.updateUI();
            } 
         });
+        
+        returnBookDialog.setVisible(true);
     }//GEN-LAST:event_ReturnLendingButtonMouseClicked
 
     private void ViewBooksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ViewBooksMouseClicked
