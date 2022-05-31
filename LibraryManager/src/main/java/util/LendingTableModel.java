@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import controllers.BookController;
 import controllers.UserController;
@@ -22,7 +23,7 @@ public class LendingTableModel extends AbstractTableModel{
     UserController userController = new UserController();
     BookController bookController = new BookController();
     
-    String[] columns = {"User name", "Book title", "Lending date"};
+    String[] columns = {"User name", "Book title", "Lending date", "Time (days)"};
     List<Lending> lendings = new ArrayList();    
     
     @Override
@@ -47,6 +48,11 @@ public class LendingTableModel extends AbstractTableModel{
             case 2:
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 return dateFormat.format(lendings.get(rowIndex).getLendingDate());
+                
+            case 3:
+                Date today = new Date();
+                long time = today.getTime() - lendings.get(rowIndex).getLendingDate().getTime();
+                return (int) (time / 86400000);
                 
             default:
                 return "unexistent column";

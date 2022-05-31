@@ -229,5 +229,42 @@ public class LendingController {
 
         return lendings;
     }
+    
+    public Lending getByUserAndBook(int userId, int bookId) { // Return a pending lending specified by user and book; Return null if not found
+        String sql = "SELECT * FROM lendings WHERE returned = FALSE AND userId = ? AND bookId = ?";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Lending lending = new Lending();
+        
+        try {
+
+            conn = ConnectionFactory.getConnection();
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, userId);
+            statement.setInt(2, bookId);
+
+            resultSet = statement.executeQuery();
+
+            if(!resultSet.next()) {
+                return null;
+            }
+
+            lending.setLendingDate(resultSet.getDate("lendingDate"));
+            lending.setReturned(resultSet.getBoolean("returned"));
+            lending.setReturnDate(resultSet.getDate("returnDate"));
+            lending.setBookId(resultSet.getInt("bookId"));
+            lending.setUserId(resultSet.getInt("userId"));
+            lending.setId(resultSet.getInt("id"));
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            //throw new SQLException("Error selecting the lendings in the database");
+        } finally {
+            ConnectionFactory.closeConnection(conn, statement, resultSet);
+        }
+        
+        return lending;
+    }
 
 }

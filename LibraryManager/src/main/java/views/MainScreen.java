@@ -9,10 +9,12 @@ import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
+import static java.lang.Integer.parseInt;
 
 import controllers.LendingController;
 import models.Lending;
 import util.LendingTableModel;
+import util.Settings;
 import views.viewUser.ViewUsersDialog;
 import views.viewBook.ViewBooksDialog;
 
@@ -61,6 +63,12 @@ public class MainScreen extends javax.swing.JFrame {
         ViewBooks = new javax.swing.JButton();
         RegisterBook = new javax.swing.JButton();
         RegisterUser = new javax.swing.JButton();
+        lendingTimeField = new javax.swing.JFormattedTextField();
+        lendingTimeLabel = new javax.swing.JLabel();
+        setLendingTimeButton = new javax.swing.JButton();
+        fineLabel = new javax.swing.JLabel();
+        fineField = new javax.swing.JFormattedTextField();
+        setFineButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(680, 660));
@@ -224,6 +232,37 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
+        lendingTimeField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+        lendingTimeField.setText("7");
+
+        lendingTimeLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lendingTimeLabel.setText("Lending time (days):");
+
+        setLendingTimeButton.setText("set");
+        setLendingTimeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                setLendingTimeButtonMouseClicked(evt);
+            }
+        });
+
+        fineLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        fineLabel.setText("Fine for day of delay:");
+
+        fineField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        fineField.setText("0,25");
+        fineField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fineFieldActionPerformed(evt);
+            }
+        });
+
+        setFineButton.setText("set");
+        setFineButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                setFineButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout ButtonsPanelLayout = new javax.swing.GroupLayout(ButtonsPanel);
         ButtonsPanel.setLayout(ButtonsPanelLayout);
         ButtonsPanelLayout.setHorizontalGroup(
@@ -234,7 +273,21 @@ public class MainScreen extends javax.swing.JFrame {
                     .addComponent(ViewBooks, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
                     .addComponent(ViewUsers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(RegisterBook, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(RegisterUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(RegisterUser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(ButtonsPanelLayout.createSequentialGroup()
+                        .addGroup(ButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(fineLabel)
+                            .addGroup(ButtonsPanelLayout.createSequentialGroup()
+                                .addComponent(fineField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(setFineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                            .addGroup(ButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ButtonsPanelLayout.createSequentialGroup()
+                                    .addComponent(lendingTimeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(setLendingTimeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                                .addComponent(lendingTimeLabel, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         ButtonsPanelLayout.setVerticalGroup(
@@ -248,7 +301,19 @@ public class MainScreen extends javax.swing.JFrame {
                 .addComponent(RegisterBook, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(RegisterUser, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(319, Short.MAX_VALUE))
+                .addGap(63, 63, 63)
+                .addComponent(lendingTimeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lendingTimeField)
+                    .addComponent(setLendingTimeButton))
+                .addGap(35, 35, 35)
+                .addComponent(fineLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(ButtonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fineField)
+                    .addComponent(setFineButton))
+                .addGap(125, 125, 125))
         );
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
@@ -353,6 +418,18 @@ public class MainScreen extends javax.swing.JFrame {
         viewBooksDialog.setVisible(true);
     }//GEN-LAST:event_ViewBooksMouseClicked
 
+    private void setLendingTimeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setLendingTimeButtonMouseClicked
+        Settings.setLendingTime(parseInt(lendingTimeField.getText()));
+    }//GEN-LAST:event_setLendingTimeButtonMouseClicked
+
+    private void setFineButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setFineButtonMouseClicked
+        Settings.setFine(Float.parseFloat(fineField.getText().replace(",", ".")));
+    }//GEN-LAST:event_setFineButtonMouseClicked
+
+    private void fineFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fineFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fineFieldActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -404,6 +481,12 @@ public class MainScreen extends javax.swing.JFrame {
     private javax.swing.JPanel TitlePanel;
     private javax.swing.JButton ViewBooks;
     private javax.swing.JButton ViewUsers;
+    private javax.swing.JFormattedTextField fineField;
+    private javax.swing.JLabel fineLabel;
+    private javax.swing.JFormattedTextField lendingTimeField;
+    private javax.swing.JLabel lendingTimeLabel;
+    private javax.swing.JButton setFineButton;
+    private javax.swing.JButton setLendingTimeButton;
     // End of variables declaration//GEN-END:variables
 
     public void decorateLendingsTable() {
@@ -414,7 +497,7 @@ public class MainScreen extends javax.swing.JFrame {
     }
     
     public void loadLendings() {
-        List<Lending> lendings = controller.getAll();
+        List<Lending> lendings = controller.getAllPending();
         lendingsModel.setLendings(lendings);
     }
     
