@@ -6,8 +6,10 @@ package views.viewUser;
 
 import java.awt.Color;
 import java.awt.Font;
+
 import models.User;
-import util.UsersLendingHistoryTableModel;
+import util.cellRenderers.LendingDatesCellRenderer;
+import util.tableModels.UsersLendingHistoryTableModel;
 
 /**
  *
@@ -21,7 +23,6 @@ public class LendingsHistoryDialog extends javax.swing.JDialog {
     public LendingsHistoryDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        decorateTable();
     }
 
     /**
@@ -158,6 +159,7 @@ public class LendingsHistoryDialog extends javax.swing.JDialog {
 
     public void setUser(User user) {
         historyTable.setModel(new UsersLendingHistoryTableModel(user));
+        decorateTable();
     }
     
     public void decorateTable() {
@@ -165,6 +167,8 @@ public class LendingsHistoryDialog extends javax.swing.JDialog {
         historyTable.getTableHeader().setBackground(new Color(120,100,82));
         historyTable.getTableHeader().setForeground(new Color(255,255,255));
         historyTable.setAutoCreateRowSorter(true);
+        historyTable.getColumnModel().getColumn(2).setCellRenderer(new LendingDatesCellRenderer());
+        historyTable.getColumnModel().getColumn(3).setCellRenderer(new LendingDatesCellRenderer());
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

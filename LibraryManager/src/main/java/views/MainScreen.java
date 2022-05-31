@@ -13,8 +13,9 @@ import static java.lang.Integer.parseInt;
 
 import controllers.LendingController;
 import models.Lending;
-import util.PendingLendingsTableModel;
+import util.tableModels.PendingLendingsTableModel;
 import util.Settings;
+import util.cellRenderers.TimeColumnCellRenderer;
 import views.viewUser.ViewUsersDialog;
 import views.viewBook.ViewBooksDialog;
 
@@ -32,11 +33,11 @@ public class MainScreen extends javax.swing.JFrame {
      */
     public MainScreen() {
         initComponents();
-        decorateLendingsTable();
         lendingsModel = new PendingLendingsTableModel();
         LendingsTable.setModel(lendingsModel);
         controller = new LendingController();
         loadLendings();
+        decorateLendingsTable();
     }
 
     /**
@@ -446,6 +447,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     private void setLendingTimeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setLendingTimeButtonMouseClicked
         Settings.setLendingTime(parseInt(lendingTimeField.getText()));
+        decorateLendingsTable();
     }//GEN-LAST:event_setLendingTimeButtonMouseClicked
 
     private void setFineButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_setFineButtonMouseClicked
@@ -546,6 +548,7 @@ public class MainScreen extends javax.swing.JFrame {
         LendingsTable.getTableHeader().setBackground(new Color(120,100,82));
         LendingsTable.getTableHeader().setForeground(new Color(255,255,255));
         LendingsTable.setAutoCreateRowSorter(true);
+        LendingsTable.getColumnModel().getColumn(3).setCellRenderer(new TimeColumnCellRenderer());
     }
     
     public void loadLendings() {

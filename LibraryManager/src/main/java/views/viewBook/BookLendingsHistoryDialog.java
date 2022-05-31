@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package views.viewBook;
-import util.BooksLendingHistoryTableModel;
+import util.tableModels.BooksLendingHistoryTableModel;
 
 import views.viewBook.*;
 import java.awt.Color;

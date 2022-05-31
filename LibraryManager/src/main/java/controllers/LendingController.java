@@ -267,6 +267,44 @@ public class LendingController {
         return lending;
     }
     
+    public List<Lending> getAllPendingByUser(int userId) { // Get all pending lendings from a given user
+        String sql = "SELECT * FROM lendings WHERE userId = ? AND returned = FALSE";
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Lending> lendings = new ArrayList<Lending>();
+
+        try {
+
+            conn = ConnectionFactory.getConnection();
+            statement = conn.prepareStatement(sql);
+            statement.setInt(1, userId);
+
+            resultSet = statement.executeQuery();
+
+            while(resultSet.next()) {
+                Lending lending = new Lending();
+
+                lending.setLendingDate(resultSet.getDate("lendingDate"));
+                lending.setReturned(resultSet.getBoolean("returned"));
+                lending.setReturnDate(resultSet.getDate("returnDate"));
+                lending.setBookId(resultSet.getInt("bookId"));
+                lending.setUserId(resultSet.getInt("userId"));
+                lending.setId(resultSet.getInt("id"));
+
+                lendings.add(lending);
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            //throw new SQLException("Error selecting the lendings in the database");
+        } finally {
+            ConnectionFactory.closeConnection(conn, statement, resultSet);
+        }
+
+        return lendings;
+    }
+    
     public int countUserPendingLendings(int userId) {
         String sql = "SELECT COUNT(*) FROM lendings WHERE returned = FALSE AND userId = ?";
         Connection conn = null;

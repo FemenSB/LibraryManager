@@ -90,7 +90,7 @@ public class PayFineDialog extends javax.swing.JDialog {
         userTotalFineLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         userTotalFineLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Total fine"));
 
-        paymentValueField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        paymentValueField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         paymentValueField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -157,7 +157,7 @@ public class PayFineDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void payButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payButtonMouseClicked
-        user.setFine(user.getFine() - parseFloat(paymentValueField.getText()));
+        user.setFine(user.getFine() - parseFloat(paymentValueField.getText().replace(",", ".")));
         UserController controller = new UserController();
         controller.update(user);
         JOptionPane.showMessageDialog(rootPane, "Payment registered");

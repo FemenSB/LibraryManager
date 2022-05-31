@@ -13,6 +13,8 @@ import controllers.LendingController;
 import util.Settings;
 
 import static java.lang.Integer.parseInt;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -178,10 +180,20 @@ public class NewLendingDialog extends javax.swing.JDialog {
         
         // Count user's current pending lendings
         LendingController lendingController = new LendingController();
-        int pendingLendings = lendingController.countUserPendingLendings(user.getId());
-        if(pendingLendings >= Settings.getMaxLendings()) {
+        List<Lending> lendings = lendingController.getAllPendingByUser(user.getId());
+        
+        if(lendings.size() >= Settings.getMaxLendings()) {
             JOptionPane.showMessageDialog(rootPane, "User already borrowed the maximum of books");
             return;
+        }
+        
+        // Check for unreturned delayed books
+        long today = new Date().getTime();
+        for(int i = 0; i < lendings.size(); i++) {
+            if(today > lendings.get(i).getLendingDate().getTime() + (Settings.getLendingTime() * 86400000)) {
+                JOptionPane.showMessageDialog(rootPane, "User has an unreturned delayed book");
+                return;
+            }
         }
         
         // Check if the user already borrowed a copy of this book

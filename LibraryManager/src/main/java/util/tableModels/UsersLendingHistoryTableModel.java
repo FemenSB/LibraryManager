@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package util;
+package util.tableModels;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -27,6 +27,10 @@ public class UsersLendingHistoryTableModel extends AbstractTableModel {
         lendings = lendingController.getAllByUser(user.getId());
     }
 
+    public Lending getLendingByIndex(int index) {
+        return lendings.get(index);
+    }
+    
     @Override
     public int getRowCount() {
         return lendings.size();
