@@ -90,7 +90,7 @@ public class BookController {
 
     }
 
-    public Book getById(int id) { // Get a single book specified by its id
+    public Book getById(int id) {  // Get a single book specified by its id; Returns null if id not found
         String sql = "SELECT * FROM books WHERE id = ?";
         Connection conn = null;
         PreparedStatement statement = null;
@@ -105,7 +105,9 @@ public class BookController {
 
             resultSet = statement.executeQuery();
 
-            resultSet.next();
+            if(!resultSet.next()) {// If resultSet.next() returns false there is no book with the specified id
+                return null;
+            }
 
             book.setTitle(resultSet.getString("title"));
             book.setAuthorName(resultSet.getString("authorName"));

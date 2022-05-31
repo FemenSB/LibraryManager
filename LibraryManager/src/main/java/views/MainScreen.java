@@ -4,7 +4,6 @@
  */
 package views;
 
-import views.viewUser.ViewUsersDialog;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
@@ -14,6 +13,8 @@ import java.util.List;
 import controllers.LendingController;
 import models.Lending;
 import util.LendingTableModel;
+import views.viewUser.ViewUsersDialog;
+import views.viewBook.ViewBooksDialog;
 
 /**
  *
@@ -191,6 +192,11 @@ public class MainScreen extends javax.swing.JFrame {
 
         ViewBooks.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ViewBooks.setText("View books");
+        ViewBooks.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ViewBooksMouseClicked(evt);
+            }
+        });
         ViewBooks.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ViewBooksActionPerformed(evt);
@@ -335,6 +341,11 @@ public class MainScreen extends javax.swing.JFrame {
            } 
         });
     }//GEN-LAST:event_ReturnLendingButtonMouseClicked
+
+    private void ViewBooksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ViewBooksMouseClicked
+        ViewBooksDialog viewBooksDialog = new ViewBooksDialog(this, rootPaneCheckingEnabled);
+        viewBooksDialog.setVisible(true);
+    }//GEN-LAST:event_ViewBooksMouseClicked
 
     /**
      * @param args the command line arguments
