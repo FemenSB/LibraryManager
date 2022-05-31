@@ -8,7 +8,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 import models.User;
-import util.cellRenderers.LendingDatesCellRenderer;
+import util.cellRenderers.UserLendingDatesCellRenderer;
 import util.tableModels.UsersLendingHistoryTableModel;
 
 /**
@@ -167,8 +167,8 @@ public class LendingsHistoryDialog extends javax.swing.JDialog {
         historyTable.getTableHeader().setBackground(new Color(120,100,82));
         historyTable.getTableHeader().setForeground(new Color(255,255,255));
         historyTable.setAutoCreateRowSorter(true);
-        historyTable.getColumnModel().getColumn(2).setCellRenderer(new LendingDatesCellRenderer());
-        historyTable.getColumnModel().getColumn(3).setCellRenderer(new LendingDatesCellRenderer());
+        historyTable.getColumnModel().getColumn(2).setCellRenderer(new UserLendingDatesCellRenderer());
+        historyTable.getColumnModel().getColumn(3).setCellRenderer(new UserLendingDatesCellRenderer());
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

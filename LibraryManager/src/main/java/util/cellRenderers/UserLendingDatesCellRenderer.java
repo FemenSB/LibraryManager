@@ -19,7 +19,7 @@ import util.tableModels.UsersLendingHistoryTableModel;
  *
  * @author Femen
  */
-public class LendingDatesCellRenderer extends DefaultTableCellRenderer {
+public class UserLendingDatesCellRenderer extends DefaultTableCellRenderer {
     
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,

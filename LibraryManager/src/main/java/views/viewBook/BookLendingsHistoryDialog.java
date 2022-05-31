@@ -3,12 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package views.viewBook;
-import util.tableModels.BooksLendingHistoryTableModel;
 
 import views.viewBook.*;
+import models.Book;
+import util.tableModels.BooksLendingHistoryTableModel;
+import util.cellRenderers.BookLendingDatesCellRenderer;
+
 import java.awt.Color;
 import java.awt.Font;
-import models.Book;
+
 
 /**
  *
@@ -22,7 +25,6 @@ public class BookLendingsHistoryDialog extends javax.swing.JDialog {
     public BookLendingsHistoryDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        decorateTable();
     }
 
     /**
@@ -160,6 +162,7 @@ public class BookLendingsHistoryDialog extends javax.swing.JDialog {
 
     public void setBook(Book book) {
         historyTable.setModel(new BooksLendingHistoryTableModel(book));
+        decorateTable();
     }
     
     public void decorateTable() {
@@ -167,6 +170,8 @@ public class BookLendingsHistoryDialog extends javax.swing.JDialog {
         historyTable.getTableHeader().setBackground(new Color(120,100,82));
         historyTable.getTableHeader().setForeground(new Color(255,255,255));
         historyTable.setAutoCreateRowSorter(true);
+        historyTable.getColumnModel().getColumn(2).setCellRenderer(new BookLendingDatesCellRenderer());
+        historyTable.getColumnModel().getColumn(3).setCellRenderer(new BookLendingDatesCellRenderer());
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

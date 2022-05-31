@@ -26,6 +26,10 @@ public class BooksLendingHistoryTableModel extends AbstractTableModel {
     public BooksLendingHistoryTableModel(Book book) {
         lendings = lendingController.getAllByBook(book.getId());
     }
+    
+    public Lending getLendingByIndex(int index) {
+        return lendings.get(index);
+    }
 
     @Override
     public int getRowCount() {
