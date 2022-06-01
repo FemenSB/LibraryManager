@@ -153,9 +153,17 @@ public class NewLendingDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lendButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lendButtonMouseClicked
-        int bookId = parseInt(bookIdField.getText());
-        int userId = parseInt(userIdField.getText());
-        
+        // Parse the ids:
+        int bookId;
+        int userId;        
+        try {
+            bookId = parseInt(bookIdField.getText());
+            userId = parseInt(userIdField.getText());
+        } catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(rootPane, "All fields should be filled with numbers");
+            return;
+        }
+        // Check if they exist:
         Book book = bookController.getById(bookId);
         User user = userController.getById(userId);
         

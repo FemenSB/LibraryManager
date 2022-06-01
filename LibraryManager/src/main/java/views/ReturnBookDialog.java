@@ -117,9 +117,9 @@ public class ReturnBookDialog extends javax.swing.JDialog {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addComponent(titlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userIdLabel)
-                    .addComponent(userIdField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(userIdField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(userIdLabel))
                 .addGap(18, 18, 18)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(bookIdLabel)
@@ -145,8 +145,15 @@ public class ReturnBookDialog extends javax.swing.JDialog {
 
     private void returnButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_returnButtonMouseClicked
         // Parse the ids:
-        int bookId = parseInt(bookIdField.getText());
-        int userId = parseInt(userIdField.getText());
+        int bookId;
+        int userId;        
+        try {
+            bookId = parseInt(bookIdField.getText());
+            userId = parseInt(userIdField.getText());
+        } catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(rootPane, "All fields should be filled with numbers");
+            return;
+        }
         // Check if they exist:
         Book book = bookController.getById(bookId);
         User user = userController.getById(userId);
