@@ -6,17 +6,20 @@
 
 package LibraryManager;
 
+import views.MainScreen;
+
 /**
  *
  * @author Femen
  */
-public class Main {
+public class LibraryManagerMaven {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+        MainScreen mainScreen = new MainScreen();
+        mainScreen.setVisible(true);
     }
 
 }
